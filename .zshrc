@@ -1,28 +1,8 @@
-# SET ZSH THEME
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+[[ -f ~/.zsh/aliases.zsh ]] && source ~/.zsh/aliases.zsh
+[[ -f ~/.zsh/functions.zsh ]] && source ~/.zsh/functions.zsh
+[[ -f ~/.zsh/starship.zsh ]] && source ~/.zsh/starship.zsh
+[[ -f ~/.zsh/nvm.zsh ]] && source ~/.zsh/nvm.zsh
+[[ -f ~/.zsh/wsl2fix.zsh ]] && source ~/.zsh/wsl2fix.zsh
 
-# Load ZSH Plugins
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# EXPORT BIN PATH
-export PATH=$PATH:$HOME/.local/bin
-export PATH=$PATH:$HOME/.cargo/bin
-
-# VAGRANT CONFIGURATION
-export VAGRANT_DEFAULT_PROVIDER="hyperv"
-export VAGRANT_WSL_ENABLE_WINDOWS_ACCESS="1"
-
-# FIX WSL2 INTEROP
-fix_wsl2_interop() {
-    for i in $(pstree -np -s $$ | grep -o -E '[0-9]+'); do
-        if [[ -e "/run/WSL/${i}_interop" ]]; then
-            export WSL_INTEROP=/run/WSL/${i}_interop
-        fi
-    done
-}
-
-# ALIAS COMMANDS
-[[ ! -f /bin/exa ]] && echo "Warning: exa is not installed" || alias ls="exa --icons --group-directories-first" 
+# Load Starship
+eval "$(starship init zsh)"
